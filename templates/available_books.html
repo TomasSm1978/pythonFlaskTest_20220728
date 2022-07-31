@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+{% if all_books %}
+<legend class="border-bottom mb-4">Books in Library</legend>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Authors</th>
+        <th scope="col">Available in Library</th>
+        <th scope="col">Readers</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    {% for book in all_books.items %}
+    <tbody>
+    <tr class="table">
+        <th scope="row">{{ book.id }}</th>
+        <td>{{ book.title }}</td>
+
+        <td>
+            {% for author in book.authors %}
+            {{author.first_name}} {{author.last_name}}
+            <br>
+            {% endfor %}
+        </td>
+
+        <td>{{ book.stock }}</td>
+        <td>
+            {% for reader in book.readers %}
+            {{reader.first_name}} {{reader.last_name}}
+            <br>
+            {% endfor %}
+        </td>
+
+        {% if book.stock >0 %}
+        <td><a href="{{ url_for('borrow_book', id=book['id']) }}">Borrow</a></td>
+    {% else %}
+        <td>Not available to borrow</td>
+    {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% for page_num in all_books.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+  {% if page_num %}
+    {% if all_books.page == page_num %}
+      <a class="btn btn-info mb-4" href="{{ url_for('my_books', page=page_num) }}">{{ page_num }}</a>
+    {% else %}
+      <a class="btn btn-outline-info mb-4" href="{{ url_for('my_books', page=page_num) }}">{{ page_num }}</a>
+    {% endif %}
+  {% else %}
+    ...
+  {% endif %}
+{% endfor %}
+{% endif %}
+{% endblock %}
