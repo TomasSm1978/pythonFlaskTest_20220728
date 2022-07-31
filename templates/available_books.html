@@ -3,7 +3,7 @@
 
 
 {% if all_books %}
-<legend class="border-bottom mb-4">Books in Library</legend>
+<legend class="mb-4">Books in Library</legend>
 <table class="table">
     <thead>
     <tr>
@@ -36,7 +36,7 @@
             {% endfor %}
         </td>
 
-        {% if book.stock >0 %}
+        {% if book.stock >0  and current_user not in book.readers %}
         <td><a href="{{ url_for('borrow_book', id=book['id']) }}">Borrow</a></td>
     {% else %}
         <td>Not available to borrow</td>
