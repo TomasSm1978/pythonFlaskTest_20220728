@@ -94,8 +94,8 @@ helper_table = db.Table('helper', db.metadata,
                         db.Column('author_id', db.Integer, db.ForeignKey('author.id')))
 
 helper_table_2 = db.Table('helper_2', db.metadata,
-                        db.Column('book_id', db.Integer, db.ForeignKey('book.id')),
-                        db.Column('user_id', db.Integer, db.ForeignKey('user.id')))
+                          db.Column('book_id', db.Integer, db.ForeignKey('book.id')),
+                          db.Column('user_id', db.Integer, db.ForeignKey('user.id')))
 
 
 class User(db.Model, UserMixin):
@@ -148,16 +148,14 @@ def home():
 @app.route('/available_books')
 @login_required
 def available_books():
-    page = request.args.get('page', 1, type=int)
-    all_books = Book.query.paginate(page=page, per_page=10)
+    all_books = Book.query.all()
     return render_template('available_books.html', all_books=all_books)
 
 
 @app.route('/my_books')
 @login_required
 def my_books():
-    page = request.args.get('page', 1, type=int)
-    my_books = Book.query.paginate(page=page, per_page=10)
+    my_books = Book.query.all()
     return render_template('my_books.html', my_books=my_books)
 
 
@@ -189,7 +187,7 @@ def sign_in():
             login_user(user)
             flash(f'Welcome, {current_user.first_name}', 'success')
             return redirect(request.args.get('next') or url_for('home'))
-        flash(f'User or password does not match', 'danger')
+        flash(f'User e-mail or password does not match', 'danger')
         return render_template('sign_in.html', form=form)
     return render_template('sign_in.html', form=form)
 

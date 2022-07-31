@@ -31,8 +31,8 @@
         <a class="nav-link" href="{{ url_for('update_account_information') }}">Account Information</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('sign_out') }}">{{current_user.first_name}}
-            {{current_user.last_name}} Sign Out</a>
+        <a class="nav-link" href="{{ url_for('sign_out') }}"> Sign Out<span></span> <font size="1rem">
+            {{current_user.first_name}} {{current_user.last_name}}</font></span></a>
     </li>
     {% else %}
     <li class="nav-item">
