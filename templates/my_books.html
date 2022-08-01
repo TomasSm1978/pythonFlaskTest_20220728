@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-
-
 {% if my_books %}
 <legend class="mb-4">Books borrowed by {{current_user.first_name}} {{current_user.last_name}}</legend>
 <table class="table">
@@ -21,14 +19,12 @@
     <tr class="table">
         <th scope="row">{{ book.id }}</th>
         <td>{{ book.title }}</td>
-
         <td>
             {% for author in book.authors %}
             {{author.first_name}} {{author.last_name}}
             <br>
             {% endfor %}
         </td>
-
         <td>{{ book.stock }}</td>
         <td>
             {% for reader in book.readers %}
@@ -42,6 +38,5 @@
     {% endfor %}
     </tbody>
 </table>
-
 {% endif %}
 {% endblock %}

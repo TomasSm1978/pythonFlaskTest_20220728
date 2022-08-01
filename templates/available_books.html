@@ -36,11 +36,11 @@
             {% endfor %}
         </td>
 
-        {% if book.stock >0  and current_user not in book.readers %}
+        {% if book.stock >0 and current_user not in book.readers %}
         <td><a href="{{ url_for('borrow_book', id=book['id']) }}">Borrow</a></td>
-    {% else %}
+        {% else %}
         <td>Not available to borrow</td>
-    {% endif %}
+        {% endif %}
     </tr>
     {% endfor %}
     </tbody>
